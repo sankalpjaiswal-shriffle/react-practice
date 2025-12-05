@@ -84,3 +84,95 @@ To display the list in the ui we use the javascipt methods like map(),filter().
 
 1. Keys helps react to uniquely identify the list
 2. It also identify which list are created,updated and deleted.
+
+## React day2:
+
+# React props:
+
+1. Props is a short form of properties and it's like a function agruments to pass data from parent to child components via html attributes.
+2. Props can be any type like numbers ,strings ,arrays ,objects etc.
+3. Props are immutable which means it cannot be modified by the child component.
+4. Props can be handle on the child component with objects as a parameters like props or we can destructure it using curly brackets {}.
+
+# React props children:
+
+1. Using Props children we can send the content between opening tag and closing tag from one component to another component with props.children or destructure children property.
+
+# Conditional rendering:
+
+-Conditional rendering is used to conditional render the components.
+-There are three ways to do:
+
+1. if statement.
+2. Logical AND(&&) operator.
+3. Ternary operator.
+
+# React useState hook
+
+-useState hook allow us to track state in a functional component.
+
+-Steps to use useState in functional components:
+
+1. Import useState from the react module.
+
+```
+import {useState} from 'react';
+```
+
+2. Initialize useState and it return two values:
+
+```
+const [state,setState]=useState(initialValue);
+```
+
+3. Read State:we can use the state variable.
+
+```
+<h1>{state}</h1>
+```
+
+# updating State:
+
+-Updating the state: we can use setState updater function.Either we can create function to update the state or we can use event handler like button onClick attribute.
+
+```
+<button onClick={()=>setState("value")}></button>
+```
+
+-useState can hold any type of data like number, string, boolean, array, object or combination of data type.
+
+# Event handling:
+
+-Just like html DOM events, React can also perform action based on events like click, change, blur, focus etc.
+-React event handlers use inside curly brackets not in strings like html.
+
+Example1: Click event
+
+```
+<button onClick={btnHandler}>Click</button>
+```
+
+Example2: For onChange it will get the event parameter.
+
+```
+<input onchange={(event)=>handleChange(event.target.value)}>
+```
+
+# Two-way binding:
+
+-In React two-way binding is the process where the state of the component and the input field both are synchronized in both direction which means if the state of the component is changed then it will also reflect to the input fields.
+
+-This synchromization allows more dynamic and interactive user interface, Where the changes in the UI are reflected immediately.
+
+# Component communication:
+
+# Parent -> child (communication):
+
+-In react,we can pass the data from parent components to child components via props.
+-It is the simplest way to communicate between the components.
+
+# Child -> Parent (Communication):
+
+-As react support unidirectional data flow, we can not pass data directly from child to parent but to achieve this, we can pass a method from parent component to child component.
+
+-Then child component execute that method to reflect and update the data to the parent component.
