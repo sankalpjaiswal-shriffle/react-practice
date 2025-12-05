@@ -6,7 +6,7 @@ const productDetails = [
       "A portable computer for personal use, designed for tasks like browsing the internet, creating documents, and playing games.",
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyoiUEpRMTKnIxdFn5_G55FK9lm3sSHopBzw&s",
-    price: "45000",
+    price: "43000",
     currency: "₹",
   },
   {
