@@ -6,9 +6,6 @@ export default function ProductCard({ productDetails }) {
       </p>
     );
 
-  let value = 100;
-
-  value = 200;
   return (
     <ul className="grid grid-cols-2 min-w-auto h-[200px]">
       {productDetails.map((product) => (
@@ -17,7 +14,7 @@ export default function ProductCard({ productDetails }) {
           className="p-4 m-4 border-solid rounded-xl shadow-lg hover:translate-y-0.5"
         >
           <img
-            className="flex w-[50%] h-[50%] object-cover p-2 items-center"
+            className="flex w-[50%] h-[50%] object-contain p-2 items-center"
             src={product.imageUrl}
             title={product.name}
           />
