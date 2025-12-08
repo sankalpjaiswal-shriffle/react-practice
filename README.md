@@ -176,3 +176,92 @@ Example2: For onChange it will get the event parameter.
 -As react support unidirectional data flow, we can not pass data directly from child to parent but to achieve this, we can pass a method from parent component to child component.
 
 -Then child component execute that method to reflect and update the data to the parent component.
+
+## React day3:
+
+# useEffect:
+
+-useEffect hook is used to perform side effects on react components.
+-It is use for fetching data, handling event listener, timers and lifecycle like mount,update and unmount.
+-useEffect hook takes two arguments function and dependency array
+
+```
+import {useEffect } from 'react';
+
+useEffect(callback,[]//dependency array);
+```
+
+# Dependency array:
+
+1. No dependency array:
+
+- If we use useEffect without dependency array then it will run on every render.
+
+2. With empty dependency array:
+
+- If we use it with dependency array then it will only run on first render or component mount.
+
+3. Passing props and state in dependency array:
+
+- It will run on first render or component mount.
+- And If any time state or props changes then it will execute based on dependency state and props.
+
+# Cleanup function:
+
+- Cleanup function is require to cleanup some effects to reduce memory leaks.
+- Effects like timers,subscriptions,event listeners, and other effects.
+- It is pass inside useEffect at the end with return keyword.
+
+# API calls using fetch:
+
+- fetch api is an built in web api that allow web browser to make HTTP request on the web server.
+
+- To use fetch api method in react we wrap inside useEffect or async await.
+
+# data handling using fetch:
+
+- We can use promise .then() chaining or async await to handle the reponse from the server.
+
+# request cycle:
+
+1. fetch() initialize the web request on the server.
+2. Then server process that request and send reponse to the client.
+3. The first .then() handle the reponse meta-data and we need check the reponse status is OK or not.
+4. The second .then() handle the response body if the reponse status is ok and then we parse into desired format like JSON.
+5. after parsing the data we can store the data in the state.
+
+# Cancelling API call:
+
+- To cancel an api request we use the abort controller method were we pass controller signal to the fetch method.
+
+```
+const controller=AbortController();
+
+fetch('api-url',{signal:controller.signal})
+```
+
+- Pass the controller.abort() mehtod in the event listener like button on click.
+
+```
+<button onClick={()=>controller.abort()}>Cancel API request</button>
+```
+
+# Loading state when fetching data:
+
+- We can define the state for the loading components using useState hook.
+
+```
+import {useState} from 'react'.
+
+const [isLoading,setIsLoading]=useState(false); //initial value to false.
+```
+
+- To use loading to show loading components when fetching data.
+
+```
+if(isLoading) return <div>Loading data...</div> //
+```
+
+# Error Handling in react:
+
+- Error handling is essential in react where catch error using try{...}catch block in functional components where it catch error in catch block and we can use define state to store error and used inside component to show user-friendly message to the users instead of crashing the enitre application.
