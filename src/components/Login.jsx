@@ -9,7 +9,7 @@ const formSchema = yup.object({
   password: yup.string().required(),
 });
 
-export default function Login({ setIsAuth }) {
+export default function Login() {
   const navigate = useNavigate();
 
   const {
