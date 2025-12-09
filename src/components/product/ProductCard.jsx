@@ -7,7 +7,7 @@ export default function ProductCard({ productDetails }) {
     );
 
   return (
-    <ul className="grid grid-cols-2 min-w-auto h-[200px]">
+    <ul className="grid grid-cols-2 min-w-auto h-[50%]">
       {productDetails.map((product) => (
         <li
           key={product.id}
