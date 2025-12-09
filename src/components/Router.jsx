@@ -12,9 +12,8 @@ export default function Router() {
     <Routes>
       <Route path="/home" element={<Home />}>
         <Route path="about" element={<About />} />
-        <Route path="product" element={<Product />}>
-          <Route path=":productID" element={<ProductDetails />} />
-        </Route>
+        <Route path="product" element={<Product />} />
+        <Route path="product/:productID" element={<ProductDetails />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/profile" element={<Profile />} />

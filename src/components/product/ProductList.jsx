@@ -17,7 +17,7 @@ export default function ProductList() {
         })
         .then((data) => setProduct(data.products))
         .catch((err) => setError(err.message))
-        .finally(setIsLoading(false));
+        .finally(() => setIsLoading(false));
     };
     fetchData();
   }, []);
@@ -31,7 +31,7 @@ export default function ProductList() {
     <div className="p-2 m-2">
       <ul className="grid grid-cols-3 p-2 m-2">
         {product?.map((productItem) => (
-          <Link to={{ pathname: `${productItem.id}` }} key={productItem.id}>
+          <Link to={`${productItem.id}`} key={productItem.id}>
             <li className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2">
               <img
                 className="w-2/4 h-2/4"

@@ -18,7 +18,7 @@ export default function ProductDetails() {
       .then((data) => setProduct(data))
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [productID]);
 
   if (isLoading) return <Loader />;
 
