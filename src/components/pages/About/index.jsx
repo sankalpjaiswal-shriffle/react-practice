@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 export default function About() {
-  const navigate = useNavigate(-1);
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(-1, { replace: true });
+    navigate("/home");
   };
   return (
     <div>

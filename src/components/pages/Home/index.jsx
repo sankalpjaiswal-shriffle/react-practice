@@ -7,6 +7,8 @@ export default function Home() {
         <Link to="/home">Home</Link>
         <Link to="product">Product</Link>
         <Link to="about">About</Link>
+        <Link to="/profile">Profile</Link>
+        <Link to="/login">Login</Link>
       </nav>
       <Outlet />
     </div>

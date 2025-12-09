@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
+import { Link } from "react-router-dom";
 export default function ProductList() {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,20 +31,21 @@ export default function ProductList() {
     <div className="p-2 m-2">
       <ul className="grid grid-cols-3 p-2 m-2">
         {product?.map((productItem) => (
-          <li
-            className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2"
-            key={productItem.id}
-          >
-            <img
-              className="w-2/4 h-2/4"
-              src={productItem.images[0]}
-              title={productItem.title}
-            />
-            <h2 className="text-2xl font-bold">{productItem.title}</h2>
-            <span className="text">Brand: {productItem.brand}</span>
-            <p className="text-gray-800 truncate">{productItem.description}</p>
-            <p className="text-blue-700">Price:{productItem.price}</p>
-          </li>
+          <Link to={{ pathname: `${productItem.id}` }} key={productItem.id}>
+            <li className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2">
+              <img
+                className="w-2/4 h-2/4"
+                src={productItem.images[0]}
+                title={productItem.title}
+              />
+              <h2 className="text-2xl font-bold">{productItem.title}</h2>
+              <span className="text">Brand: {productItem.brand}</span>
+              <p className="text-gray-800 truncate">
+                {productItem.description}
+              </p>
+              <p className="text-blue-700">Price:{productItem.price}</p>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
