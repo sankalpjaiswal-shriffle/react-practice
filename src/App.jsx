@@ -7,11 +7,6 @@ import Router from "./components/Router";
 function App() {
   return (
     <BrowserRouter>
-      {/* <div className="flex flex-col items-center justify-center">
-        <Profile />
-        <Product />
-        <Form />
-      </div> */}
       <Router />
     </BrowserRouter>
   );
