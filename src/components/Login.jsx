@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { setCookie } from "../utils/cookie";
 
 const formSchema = yup.object({
   email: yup.string().email().required(),
@@ -8,6 +10,8 @@ const formSchema = yup.object({
 });
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,29 +23,11 @@ export default function Login() {
 
   function onSubmit(data) {
     const { email, password } = data;
-    console.log(email, password);
     setCookie("email", email, 7);
     setCookie("password", password, 7);
     reset();
+    navigate("/home");
   }
-
-  const setCookie = (name, value, days) => {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + days);
-
-    document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
-  };
-
-  const getCookie = () => {
-    let cookieObj = {};
-
-    document.cookie.split("; ").forEach((item) => {
-      const ele = item.split("=");
-      cookieObj[ele[0]] = ele[1];
-    });
-  };
-
-  getCookie();
 
   return (
     <form
