@@ -1,11 +1,14 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/index";
-import About from "./pages/About";
-import Product from "./product/Product";
-import ProductDetails from "./product/ProductDetails";
+
 import Login from "./Login";
 import Profile from "./Profile";
 import ProtectedRoute from "./ProtectedRoute";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Product = lazy(() => import("./product/Product"));
+const ProductDetails = lazy(() => import("./product/ProductDetails"));
 
 export default function Router() {
   return (

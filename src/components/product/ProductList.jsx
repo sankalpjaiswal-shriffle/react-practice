@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
 import Loader from "../Loader";
-import { Link } from "react-router-dom";
-export default function ProductList() {
-  const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const api = "https://dummyjson.com/products?limit=9";
+import useFetch from "../../hooks/useFetch";
+import { productApi } from "../../utils/productAPI";
+import { useMemo, useState } from "react";
+import ProductCard from "./ProductCard";
+import SearchBar from "../common/SearchBar";
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchData = () => {
-      fetch(api)
-        .then((response) => {
-          if (!response.ok) throw new Error("Something went wrong");
-          return response.json();
-        })
-        .then((data) => setProduct(data.products))
-        .catch((err) => setError(err.message))
-        .finally(() => setIsLoading(false));
-    };
-    fetchData();
-  }, []);
+export default function ProductList() {
+  const limit = 9;
+  const { data, isLoading, error } = useFetch(productApi + `?limit=${limit}`);
+  const [search, setSearch] = useState(null);
+
+  let filteredList = data?.products;
+
+  let regex = useMemo(() => {
+    return new RegExp(search?.trim().toLowerCase().replace(/\s+/g, " "));
+  }, [search]);
+
+  filteredList = data?.products?.filter((item) =>
+    item.title.toLowerCase().match(regex)
+  );
 
   if (error)
     return <div className="flex items-center justify-center">{error}</div>;
@@ -29,25 +27,8 @@ export default function ProductList() {
 
   return (
     <div className="p-2 m-2">
-      <ul className="grid grid-cols-3 p-2 m-2">
-        {product?.map((productItem) => (
-          <Link to={`${productItem.id}`} key={productItem.id}>
-            <li className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2">
-              <img
-                className="w-2/4 h-2/4"
-                src={productItem.images[0]}
-                title={productItem.title}
-              />
-              <h2 className="text-2xl font-bold">{productItem.title}</h2>
-              <span className="text">Brand: {productItem.brand}</span>
-              <p className="text-gray-800 truncate">
-                {productItem.description}
-              </p>
-              <p className="text-blue-700">Price:{productItem.price}</p>
-            </li>
-          </Link>
-        ))}
-      </ul>
+      <SearchBar setSearch={setSearch} />
+      <ProductCard productList={filteredList} />
     </div>
   );
 }

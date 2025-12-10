@@ -265,3 +265,37 @@ if(isLoading) return <div>Loading data...</div> //
 # Error Handling in react:
 
 - Error handling is essential in react where catch error using try{...}catch block in functional components where it catch error in catch block and we can use define state to store error and used inside component to show user-friendly message to the users instead of crashing the enitre application.
+
+## React hook:
+
+# useRef():
+
+- useRef hook is essential for handling mutable data that persist without causing re-render on the UI.
+
+```
+import {useRef} from 'react'
+
+const ref=useRef(initialValue) //initial value ignored after 1st render.
+```
+
+- we can acces the value of ref using .current property.
+- To update the value (ref.current=value or ref.current++)
+
+# useMemo():
+
+- useMemo hook is used to memoized the expensive calculations and avoid unnecessary re-calculations in the component.It will only re-calculate when then dependencies changes.
+
+# useCallback():
+
+- useCallback hook is used to memoized the functions so that they do not created on every render happen on the component.It will only recreated when the dependencies changes.
+
+# React memo:
+
+- React memo is an higher order function that memoized components and avoid re-render if the state or props is same.
+- It will only re-render if the state r props is changed.
+
+# Javascript: async/await
+
+- async: The async keyword use as a prefix for the function and make the function asynchronous that typically return a promise.
+- await: The await keyword only used inside an async function and await pause the execution until the promise is resolve or rejected.
+- Error handling using async/await is one by try..catch block.

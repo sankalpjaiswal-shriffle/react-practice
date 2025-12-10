@@ -1,5 +1,8 @@
-export default function ProductCard({ productDetails }) {
-  if (!productDetails.length)
+import { Link } from "react-router-dom";
+
+export default function ProductCard({ productList }) {
+  console.log(productList);
+  if (!productList?.length)
     return (
       <p className="flex text-base items-center justify-center">
         No Product Found!
@@ -7,27 +10,21 @@ export default function ProductCard({ productDetails }) {
     );
 
   return (
-    <ul className="grid grid-cols-2 min-w-auto h-[50%]">
-      {productDetails.map((product) => (
-        <li
-          key={product.id}
-          className="p-4 m-4 border-solid rounded-xl shadow-lg hover:translate-y-0.5"
-        >
-          <img
-            className="flex w-[50%] h-[50%] object-contain p-2 items-center"
-            src={product.imageUrl}
-            title={product.name}
-          />
-          <h3 className="text-2xl font-bold">{product.name}</h3>
-          <p className="text-sm text-wrap">{product.description}</p>
-          <p className="p-2">
-            Price:
-            <span className="m-2">
-              {product.currency}
-              {product.price}
-            </span>
-          </p>
-        </li>
+    <ul className="grid grid-cols-3 p-2 m-2">
+      {productList?.map((productItem) => (
+        <Link to={`${productItem.id}`} key={productItem.id}>
+          <li className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2">
+            <img
+              className="w-2/4 h-2/4"
+              src={productItem.images[0]}
+              title={productItem.title}
+            />
+            <h2 className="text-2xl font-bold">{productItem.title}</h2>
+            <span className="text">Brand: {productItem.brand}</span>
+            <p className="text-gray-800 truncate">{productItem.description}</p>
+            <p className="text-blue-700">Price:{productItem.price}</p>
+          </li>
+        </Link>
       ))}
     </ul>
   );
