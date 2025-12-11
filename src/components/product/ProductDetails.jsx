@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
+import useFetch from "../../hooks/useFetch";
+import { productApi } from "../../utils/productAPI";
 
 export default function ProductDetails() {
-  const apiUrl = "https://dummyjson.com/products/";
   const { productID } = useParams();
-  const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(apiUrl + productID)
-      .then((res) => {
-        if (!res.ok) throw new Error("something went wrong");
-        return res.json();
-      })
-      .then((data) => setProduct(data))
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-  }, [productID]);
+  const { data, isLoading, error } = useFetch(productApi + `/${productID}`);
+  const product = data;
 
   if (isLoading) return <Loader />;
+
+  if (error)
+    return <div className="flex items-center justify-center">{error}</div>;
 
   return (
     <div className="h-[50%] w-[50%]">
