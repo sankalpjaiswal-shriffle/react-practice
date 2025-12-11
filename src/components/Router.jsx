@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "./Login";
 import Profile from "./Profile";
@@ -13,6 +13,7 @@ const ProductDetails = lazy(() => import("./product/ProductDetails"));
 export default function Router() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />}>
         <Route path="about" element={<About />} />
         <Route path="product" element={<Product />} />

@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../utils/cookie";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const formSchema = yup.object({
   email: yup.string().email().required(),
@@ -11,6 +13,7 @@ const formSchema = yup.object({
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const {
     register,
@@ -25,42 +28,45 @@ export default function Login() {
     const { email, password } = data;
     setCookie("email", email, 7);
     setCookie("password", password, 7);
+    login(email);
     reset();
     navigate("/home");
   }
 
   return (
-    <form
-      className="border-2 m-4 p-4 rounded-xl w-2/4 h-auto"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="font-bold text-2xl text-center mb-2">Login form </h2>
-        <div className="mb-2">
-          <label className="block" htmlFor="email">
-            Email:
-          </label>
-          <input className="border rounded" {...register("email")} />
-          <p>{errors.email?.message}</p>
+    <div className="flex items-center justify-center dark:bg-black dark:text-white min-h-screen">
+      <form
+        className="border-2 m-4 p-4 rounded-xl w-2/4 h-auto"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="font-bold text-2xl text-center mb-2">Login form </h2>
+          <div className="mb-2">
+            <label className="block" htmlFor="email">
+              Email:
+            </label>
+            <input className="border rounded" {...register("email")} />
+            <p className="text-red-500">{errors.email?.message}</p>
+          </div>
+          <div className="mb-2">
+            <label className="block" htmlFor="password">
+              Password:
+            </label>
+            <input
+              className="border rounded"
+              type="password"
+              {...register("password")}
+            />
+            <p className="text-red-500">{errors.password?.message}</p>
+          </div>
+          <button
+            className="border rounded bg-blue-900 dark:bg-white text-white dark:text-black font-bold p-2"
+            type="submit"
+          >
+            Sign in
+          </button>
         </div>
-        <div className="mb-2">
-          <label className="block" htmlFor="password">
-            Password:
-          </label>
-          <input
-            className="border rounded"
-            type="password"
-            {...register("password")}
-          />
-          <p>{errors.password?.message}</p>
-        </div>
-        <button
-          className="border rounded bg-blue-900 text-white p-2"
-          type="submit"
-        >
-          Sign in
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
