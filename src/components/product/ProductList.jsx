@@ -10,16 +10,18 @@ export default function ProductList() {
   const { data, isLoading, error } = useFetch(productApi + `?limit=${limit}`);
   const [search, setSearch] = useState(null);
 
-  let filteredList = data?.products;
+  const filteredList = useMemo(() => {
+    let trimed = search?.trim().toLowerCase();
+    if (!trimed) return data?.products;
 
-  let regex = useMemo(() => {
-    return new RegExp(search?.trim().toLowerCase().replace(/\s+/g, " "));
-  }, [search]);
+    let regex = new RegExp(trimed.replace(/\s+/g, " "));
 
-  filteredList = data?.products?.filter((item) =>
-    item.title.toLowerCase().match(regex)
-  );
+    return data?.products?.filter((item) =>
+      item.title.toLowerCase().match(regex)
+    );
+  }, [data, search]);
 
+  console.log(filteredList);
   if (error)
     return <div className="flex items-center justify-center">{error}</div>;
 
