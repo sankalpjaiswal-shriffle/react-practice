@@ -6,7 +6,7 @@ export default function Profile() {
   let { name, age } = personDetails;
 
   return (
-    <div className="flex">
+    <div className="flex items-center justify-center dark:bg-black dark:text-white min-h-screen">
       <div className="flex flex-col items-center">
         <h3>{name}</h3>
         <p>{age}</p>
