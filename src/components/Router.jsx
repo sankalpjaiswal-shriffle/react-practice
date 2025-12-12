@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Profile from "./Profile";
 import ProtectedRoute from "./ProtectedRoute";
+import ProductCart from "./product/ProductCart";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -18,6 +19,7 @@ export default function Router() {
         <Route path="about" element={<About />} />
         <Route path="product" element={<Product />} />
         <Route path="product/:productID" element={<ProductDetails />} />
+        <Route path="cart" element={<ProductCart />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/profile" element={<Profile />} />
