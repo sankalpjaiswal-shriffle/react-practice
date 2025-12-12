@@ -3,9 +3,7 @@ import Button from "../common/Button";
 import { increment, decrement, removeItem } from "../reducers/cartSlice";
 
 export default function ProductCart() {
-  const cart =
-    useSelector((state) => state.cart) ||
-    JSON.parse(localStorage.getItem("cart"));
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   if (cart.length === 0)
