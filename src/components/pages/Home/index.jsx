@@ -36,6 +36,12 @@ export default function Home() {
           <button className="p-4 border-2 rounded-2xl" onClick={handleAuth}>
             {isLoggedIn ? "Logout" : "Login"}
           </button>
+          <button
+            className="p-4 border-2 rounded-2xl"
+            onClick={() => navigate("/home/cart")}
+          >
+            Cart
+          </button>
         </div>
       </div>
       <Outlet />

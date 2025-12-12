@@ -299,3 +299,26 @@ const ref=useRef(initialValue) //initial value ignored after 1st render.
 - async: The async keyword use as a prefix for the function and make the function asynchronous that typically return a promise.
 - await: The await keyword only used inside an async function and await pause the execution until the promise is resolve or rejected.
 - Error handling using async/await is one by try..catch block.
+
+## Redux toolkit
+
+- Redux is a external library that is used for global state management that centralized application state.
+- It uses actions, reducers and a store for predictable state updates.
+
+# Store:
+
+- Store is a container that holds all the state of the application and can hold any type of data.
+
+# Actions:
+
+- Action is an object that describe what changes need to made on the state of the application.
+- Action object contains type property that describe action type and payload that contains value for the type.
+
+# Dispatch:
+
+- useDispatch hook is provided by the redux that return a function and we can name it as dispatch.
+- dispatch function is used to send actions to the store and based on action type store perform reducer.
+
+# Reducer:
+
+Reducer is a function that takes two arguments action and current state and return new state based on actions.
