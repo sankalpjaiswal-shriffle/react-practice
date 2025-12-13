@@ -6,12 +6,17 @@ import { productApiById } from "../../utils/productAPI";
 import Button from "../common/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../reducers/cartSlice";
+import type { Product } from "../../types/Product";
+
+type State = {
+  cart: Product[];
+};
 
 export default function ProductDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const { productID } = useParams();
+  const cart = useSelector((state: State) => state.cart);
+  const { productID } = useParams<{ productID: string }>();
   const {
     data: product,
     isLoading,

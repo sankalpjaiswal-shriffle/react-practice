@@ -4,11 +4,14 @@ import { productApi } from "../../utils/productAPI";
 import { useMemo, useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import SearchBar from "../common/SearchBar";
+import { ProductResponse, Product } from "../../types/product";
 
 export default function ProductList() {
   const limit = 15;
-  const { data, isLoading, error } = useFetch(productApi + `?limit=${limit}`);
-  const [search, setSearch] = useState(null);
+  const { data, isLoading, error } = useFetch<ProductResponse>(
+    productApi + `?limit=${limit}`
+  );
+  const [search, setSearch] = useState<string | null>(null);
 
   const filteredList = useMemo(() => {
     let trimed = search?.trim().toLowerCase();

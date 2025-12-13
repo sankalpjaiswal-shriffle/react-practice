@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { Product } from "../../types/Product";
 
-export default function ProductCard({ productList }) {
+type ProductCardProps = {
+  productList?: Product[];
+};
+
+export default function ProductCard({ productList }: ProductCardProps) {
   if (!productList?.length)
     return (
       <p className="flex text-base items-center justify-center text-black dark:text-white min-h-screen">
