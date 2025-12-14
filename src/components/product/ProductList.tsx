@@ -1,13 +1,13 @@
-import Loader from "../Loader";
+import { useMemo, useState } from "react";
+import { Box, Container, CircularProgress, Alert } from "@mui/material";
 import useFetch from "../../hooks/useFetch";
 import { productApi } from "../../utils/productAPI";
-import { useMemo, useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import SearchBar from "../common/SearchBar";
-import { ProductResponse, Product } from "../../types/product";
+import type { ProductResponse } from "../../types/product";
 
 export default function ProductList() {
-  const limit = 15;
+  const limit = 16;
   const { data, isLoading, error } = useFetch<ProductResponse>(
     productApi + `?limit=${limit}`
   );
@@ -24,15 +24,38 @@ export default function ProductList() {
     );
   }, [data, search]);
 
-  if (error)
-    return <div className="flex items-center justify-center">{error}</div>;
+  if (error) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="50vh"
+      >
+        <Alert severity="error">{error}</Alert>
+      </Box>
+    );
+  }
 
-  if (isLoading) return <Loader />;
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="50vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
-    <div className="p-2 m-2 dark:bg-black">
-      <SearchBar setSearch={setSearch} />
-      <ProductCard productList={filteredList} />
-    </div>
+    <Container maxWidth="xl">
+      <Box sx={{ py: 3, px: { xs: 2, md: 4 } }}>
+        <SearchBar setSearch={setSearch} />
+        <ProductCard productList={filteredList} />
+      </Box>
+    </Container>
   );
 }

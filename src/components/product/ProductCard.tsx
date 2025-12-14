@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
-import { Product } from "../../types/Product";
+import type { Product } from "../../types/product";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 type ProductCardProps = {
   productList?: Product[];
@@ -8,34 +17,89 @@ type ProductCardProps = {
 export default function ProductCard({ productList }: ProductCardProps) {
   if (!productList?.length)
     return (
-      <p className="flex text-base items-center justify-center text-black dark:text-white min-h-screen">
-        No Product Found!
-      </p>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="50vh"
+      >
+        <Typography variant="body1" color="text.primary">
+          No Product Found!
+        </Typography>
+      </Box>
     );
 
   return (
-    <ul className="grid grid-cols-3 p-2 m-2">
+    <Grid container spacing={2} sx={{ p: 2 }}>
       {productList?.map((productItem) => (
-        <Link to={`${productItem.id}`} key={productItem.id}>
-          <li className="flex flex-col p-2 m-2 text-wrap border-2 rounded-2xl gap-2 dark:border-white">
-            <img
-              className="w-2/4 h-2/4"
-              src={productItem.images[0]}
-              title={productItem.title}
-            />
-            <h2 className="text-2xl font-bold text-black dark:text-white">
-              {productItem.title}
-            </h2>
-            <span className="text text-black dark:text-white">
-              Brand: {productItem.brand}
-            </span>
-            <p className="text-gray-800 truncate  dark:text-gray-200">
-              {productItem.description}
-            </p>
-            <p className="text-blue-700 ">Price: ${productItem.price}</p>
-          </li>
-        </Link>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={productItem.id}>
+          <Link
+            to={`${productItem.id}`}
+            style={{ textDecoration: "none", display: "block", height: "100%" }}
+          >
+            <Card
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                border: "1px solid #000",
+                transition: "transform 0.2s, box-shadow 0.2s",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6,
+                },
+              }}
+            >
+              <CardMedia
+                component="img"
+                image={productItem.images[0]}
+                title={productItem.title}
+                alt={productItem.title}
+                sx={{
+                  height: 200,
+                  objectFit: "contain",
+                  p: 2,
+                }}
+              />
+              <CardContent sx={{ p: 2, flexGrow: 1 }}>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  fontWeight="bold"
+                  gutterBottom
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {productItem.title}
+                </Typography>
+                <Chip
+                  label={`Brand : ${productItem.brand}`}
+                  size="small"
+                  sx={{
+                    mb: 1,
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    mb: 1,
+                  }}
+                >
+                  {productItem.description}
+                </Typography>
+                <Typography variant="body2" color="primary" fontWeight="bold">
+                  Price: ${productItem.price}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Link>
+        </Grid>
       ))}
-    </ul>
+    </Grid>
   );
 }
