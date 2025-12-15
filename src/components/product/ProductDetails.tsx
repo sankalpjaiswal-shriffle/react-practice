@@ -18,14 +18,19 @@ import { productApiById } from "../../utils/productAPI";
 import { addItemToCart } from "../reducers/cartSlice";
 import type { Product } from "../../types/product";
 
-type State = {
-  cart: Product[];
-};
+interface CartItem extends Product {
+  quantity: number;
+}
 
+interface CartSliceState {
+  cart: CartItem[];
+}
 export default function ProductDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector((state: State) => state.cart);
+  const cart = useSelector(
+    (state: { cart: CartSliceState }) => state.cart.cart
+  );
   const { productID } = useParams<{ productID: string }>();
 
   const {

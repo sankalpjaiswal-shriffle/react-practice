@@ -5,13 +5,30 @@ import { productApi } from "../../utils/productAPI";
 import ProductCard from "./ProductCard";
 import SearchBar from "../common/SearchBar";
 import type { ProductResponse } from "../../types/product";
+import { Pagination } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { changePage } from "../reducers/paginationSlice";
+
+interface RootState {
+  pagination: {
+    currentPage: number;
+  };
+}
 
 export default function ProductList() {
   const limit = 16;
+  const pageItem = 3;
   const { data, isLoading, error } = useFetch<ProductResponse>(
     productApi + `?limit=${limit}`
   );
   const [search, setSearch] = useState<string | null>(null);
+  const currentPage = useSelector(
+    (state: RootState) => state.pagination.currentPage
+  );
+  const dispatch = useDispatch();
+  const page = Math.ceil(data?.products.length / pageItem);
+  const lastIndex = currentPage * pageItem;
+  const firstIndex = lastIndex - pageItem;
 
   const filteredList = useMemo(() => {
     let trimed = search?.trim().toLowerCase();
@@ -23,6 +40,14 @@ export default function ProductList() {
       item.title.toLowerCase().match(regex)
     );
   }, [data, search]);
+
+  const pageData = search
+    ? filteredList
+    : data?.products.slice(firstIndex, lastIndex);
+
+  function handlePageChange(page: number) {
+    dispatch(changePage(page));
+  }
 
   if (error) {
     return (
@@ -54,7 +79,18 @@ export default function ProductList() {
     <Container maxWidth="xl">
       <Box sx={{ py: 3, px: { xs: 2, md: 4 } }}>
         <SearchBar setSearch={setSearch} />
-        <ProductCard productList={filteredList} />
+        <ProductCard productList={pageData} />
+        {!search && (
+          <Pagination
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            count={page}
+            onChange={(_, page) => handlePageChange(page)}
+          />
+        )}
       </Box>
     </Container>
   );
