@@ -40,7 +40,7 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload
       );
       state.cart = removeItem;
-      localStorage.setItem("cart", state.cart);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
   },
 });

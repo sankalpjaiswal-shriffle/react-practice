@@ -1,6 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
 import { increment, decrement, removeItem } from "../reducers/cartSlice";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Add, Remove } from "@mui/icons-material";
 
 export default function ProductCart() {
   const cart = useSelector((state) => state.cart);
@@ -8,47 +19,80 @@ export default function ProductCart() {
 
   if (cart.length === 0)
     return (
-      <div className="flex items-center justify-center text-black dark:text-white mt-4">
-        Add products to cart
-      </div>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50vh"
+      >
+        <Typography variant="h6" color="text.primary">
+          Add products to cart
+        </Typography>
+      </Box>
     );
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className=" text-3xl text-black dark:text-white font-bold mt-2">
-        Product Cart
-      </h1>
-      <ul className="mt-4">
-        {cart?.map((item) => (
-          <li
-            key={item.id}
-            className="flex items-center border-2 gap-2 text-black dark:text-white rounded-2xl p-4 m-4"
-          >
-            <img
-              src={item.images[0]}
-              title={item.title}
-              alt={item.title}
-              className="h-24 w-24"
-            />
-            <div className="flex flex-col">
-              <h3 className="text-black dark:text-white font-bold">
-                {item.title}
-              </h3>
-              <p className="text-black dark:text-white">
-                Price: <span>${item.price}</span>
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button onClick={() => dispatch(decrement(item.id))}>-</Button>
-              <p className="font-bold">{item.quantity}</p>
-              <Button onClick={() => dispatch(increment(item.id))}>+</Button>
-            </div>
-            <Button onClick={() => dispatch(removeItem(item.id))}>
-              Remove
-            </Button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="md">
+      <Box sx={{ px: 4 }}>
+        <Typography
+          variant="h3"
+          component="h1"
+          fontWeight="bold"
+          sx={{ mb: 4 }}
+        >
+          Product Cart
+        </Typography>
+        <Stack spacing={2}>
+          {cart?.map((item) => (
+            <Card
+              key={item.id}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                p: 2,
+              }}
+            >
+              <CardMedia
+                component="img"
+                image={item.images[0]}
+                title={item.title}
+                alt={item.title}
+                sx={{ width: 100, height: 100, objectFit: "contain", mr: 2 }}
+              />
+              <CardContent sx={{ flex: 1, p: 0 }}>
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  {item.title}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Price: <strong>${item.price}</strong>
+                </Typography>
+              </CardContent>
+              <Box display="flex" alignItems="center" gap={1} sx={{ mr: 2 }}>
+                <IconButton
+                  onClick={() => dispatch(decrement(item.id))}
+                  color="primary"
+                  size="small"
+                >
+                  <Remove />
+                </IconButton>
+                <Typography variant="h6" fontWeight="bold" sx={{ mx: 1 }}>
+                  {item.quantity}
+                </Typography>
+                <IconButton
+                  onClick={() => dispatch(increment(item.id))}
+                  color="primary"
+                  size="small"
+                >
+                  <Add />
+                </IconButton>
+              </Box>
+              <Button onClick={() => dispatch(removeItem(item.id))}>
+                Remove
+              </Button>
+            </Card>
+          ))}
+        </Stack>
+      </Box>
+    </Container>
   );
 }
