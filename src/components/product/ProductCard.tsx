@@ -75,7 +75,7 @@ export default function ProductCard({ productList }: ProductCardProps) {
                   {productItem.title}
                 </Typography>
                 <Chip
-                  label={`Brand : ${productItem.brand}`}
+                  label={`Category : ${productItem.category}`}
                   size="small"
                   sx={{
                     mb: 1,

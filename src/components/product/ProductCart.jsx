@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
-import { increment, decrement, removeItem } from "../reducers/cartSlice";
+import { increment, decrement, removeItem } from "../../reducers/cartSlice";
 import {
   Box,
   Card,
@@ -14,7 +14,7 @@ import {
 import { Add, Remove } from "@mui/icons-material";
 
 export default function ProductCart() {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
 
   if (cart.length === 0)

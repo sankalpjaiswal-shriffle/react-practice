@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
-import { Box, Container, CircularProgress, Alert } from "@mui/material";
-import useFetch from "../../hooks/useFetch";
-import { productApi } from "../../utils/productAPI";
+import { Box, Container } from "@mui/material";
 import ProductCard from "./ProductCard";
 import SearchBar from "../common/SearchBar";
-import type { ProductResponse } from "../../types/product";
 import { Pagination } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { changePage } from "../reducers/paginationSlice";
+import { changePage } from "../../reducers/paginationSlice";
+import useProduct from "../../hooks/useProduct";
+import Loader from "../Loader";
+import Error from "../Error";
 
 interface RootState {
   pagination: {
@@ -15,64 +15,46 @@ interface RootState {
   };
 }
 
+interface dataItem {
+  title: string;
+}
+
 export default function ProductList() {
-  const limit = 16;
   const pageItem = 3;
-  const { data, isLoading, error } = useFetch<ProductResponse>(
-    productApi + `?limit=${limit}`
-  );
+  const { data, error, isLoading } = useProduct();
+  console.log(data);
   const [search, setSearch] = useState<string | null>(null);
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage
   );
   const dispatch = useDispatch();
-  const page = Math.ceil(data?.products.length / pageItem);
+  const page = Math.ceil(data?.length / pageItem);
   const lastIndex = currentPage * pageItem;
   const firstIndex = lastIndex - pageItem;
 
   const filteredList = useMemo(() => {
     let trimed = search?.trim().toLowerCase();
-    if (!trimed) return data?.products;
+    if (!trimed) return data;
 
     let regex = new RegExp(trimed.replace(/\s+/g, " "));
 
-    return data?.products?.filter((item) =>
+    return data?.filter((item: dataItem) =>
       item.title.toLowerCase().match(regex)
     );
   }, [data, search]);
 
-  const pageData = search
-    ? filteredList
-    : data?.products.slice(firstIndex, lastIndex);
+  const pageData = search ? filteredList : data?.slice(firstIndex, lastIndex);
 
   function handlePageChange(page: number) {
     dispatch(changePage(page));
   }
 
   if (error) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="50vh"
-      >
-        <Alert severity="error">{error}</Alert>
-      </Box>
-    );
+    return <Error error={error} />;
   }
 
   if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="50vh"
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <Loader />;
   }
 
   return (

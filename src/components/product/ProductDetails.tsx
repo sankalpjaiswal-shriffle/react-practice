@@ -7,16 +7,15 @@ import {
   Typography,
   Button,
   Chip,
-  CircularProgress,
-  Alert,
   Container,
 } from "@mui/material";
 import { ShoppingCart, ArrowForward } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import useFetch from "../../hooks/useFetch";
-import { productApiById } from "../../utils/productAPI";
-import { addItemToCart } from "../reducers/cartSlice";
+import { addItemToCart } from "../../reducers/cartSlice";
 import type { Product } from "../../types/product";
+import useProductDetails from "../../hooks/useProductDetails";
+import Loader from "../Loader";
+import Error from "../Error";
 
 interface CartItem extends Product {
   quantity: number;
@@ -33,11 +32,7 @@ export default function ProductDetails() {
   );
   const { productID } = useParams<{ productID: string }>();
 
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useFetch<Product>(productApiById + `/${productID}`);
+  const { data: product, isLoading, error } = useProductDetails(productID);
 
   const isItemAdded = cart?.find((item) => item.id === product?.id) || null;
 
@@ -55,29 +50,11 @@ export default function ProductDetails() {
   }
 
   if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="50vh"
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <Loader />;
   }
 
   if (error) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="50vh"
-      >
-        <Alert severity="error">{error}</Alert>
-      </Box>
-    );
+    return <Error error={error} />;
   }
 
   return (
