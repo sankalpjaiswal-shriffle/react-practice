@@ -1,4 +1,4 @@
-function memoize(func) {
+function memoize() {
   let cacheValue = {};
   let result = 1;
   return function (...args) {

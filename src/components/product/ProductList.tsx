@@ -22,7 +22,6 @@ interface dataItem {
 export default function ProductList() {
   const pageItem = 3;
   const { data, error, isLoading } = useProduct();
-  console.log(data);
   const [search, setSearch] = useState<string | null>(null);
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage

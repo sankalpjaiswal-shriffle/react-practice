@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../utils/cookie";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthProvider";
+import { AuthContext } from "../contexts/AuthContext";
 
 const formSchema = yup.object({
   email: yup.string().email().required(),
