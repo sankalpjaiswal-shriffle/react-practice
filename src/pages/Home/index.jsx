@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../../../contexts/ThemeProvider";
-import { AuthContext } from "../../../contexts/AuthProvider";
+import { ThemeContext } from "../../contexts/ThemeProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 export default function Home() {
   const navigate = useNavigate();

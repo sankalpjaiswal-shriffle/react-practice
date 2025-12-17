@@ -1,6 +1,6 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 
-export default function Loader() {
+export default function Error({ error }) {
   return (
     <Box
       display="flex"
@@ -8,7 +8,7 @@ export default function Loader() {
       justifyContent="center"
       minHeight="50vh"
     >
-      <CircularProgress />
+      <Alert severity="error">{error.message}</Alert>
     </Box>
   );
 }
