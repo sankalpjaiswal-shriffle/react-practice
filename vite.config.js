@@ -14,7 +14,17 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   test: {
+    environment: "jsdom",
+    globals: true,
     projects: [
+      {
+        name: "unit",
+        extends: true,
+        test: {
+          include: ["src/test/**/*.{test,spec}.{js,ts,jsx,tsx}"],
+          environment: "jsdom",
+        },
+      },
       {
         extends: true,
         plugins: [
