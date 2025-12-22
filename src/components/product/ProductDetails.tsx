@@ -9,7 +9,8 @@ import {
   Chip,
   Container,
 } from "@mui/material";
-import { ShoppingCart, ArrowForward } from "@mui/icons-material";
+import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../reducers/cartSlice";
 import type { Product } from "../../types/product";

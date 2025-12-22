@@ -16,6 +16,10 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    setupFiles: "./src/test/setup.ts",
+    deps: {
+      external: ["@mui/icons-material"],
+    },
     projects: [
       {
         name: "unit",
