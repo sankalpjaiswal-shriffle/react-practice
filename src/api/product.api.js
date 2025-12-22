@@ -1,7 +1,7 @@
 const productApi = import.meta.env.VITE_PRODUCT_API;
 
 export const fetchProduct = async () => {
-  const res = await fetch(productApi);
+  const res = await fetch(productApi + "/products");
   if (!res.ok) {
     throw new Error("Something went wrong");
   }
@@ -10,7 +10,7 @@ export const fetchProduct = async () => {
 };
 
 export const fetchProductById = async (productId) => {
-  const res = await fetch(productApi + `/${productId}`);
+  const res = await fetch(productApi + `/products/${productId}`);
   if (!res.ok) {
     throw new Error("Something went wrong");
   }
