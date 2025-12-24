@@ -7,7 +7,6 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import ProductList from "../components/product/ProductList";
 import { paginationReducer } from "../reducers/paginationSlice";
 import * as productHook from "../hooks/useProduct";
-import { a } from "vitest/dist/chunks/suite.d.BJWk38HB";
 
 const mockProducts = [
   {
