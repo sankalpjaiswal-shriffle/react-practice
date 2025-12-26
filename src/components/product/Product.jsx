@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import ProductList from "./ProductList";
+import ProductPage from "./ProductPage";
 
 export default function Product() {
   return (
@@ -14,7 +15,8 @@ export default function Product() {
         >
           Product page
         </Typography>
-        <ProductList />
+        {/* <ProductList /> */}
+        <ProductPage />
       </Container>
     </Box>
   );
