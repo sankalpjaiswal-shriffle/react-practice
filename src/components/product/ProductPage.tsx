@@ -23,7 +23,7 @@ function ProductPage() {
   useEffect(() => {
     const handleScroll = throttle(() => {
       const bottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 300;
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
 
       if (bottom) {
         setSkip((prev) => prev + limit);
@@ -32,7 +32,7 @@ function ProductPage() {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [document, window]);
+  }, []);
 
   return (
     <Box>
